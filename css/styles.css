@@ -1,3 +1,7 @@
-div {
+/*div {
   border: solid 1px red;
+}*/
+
+.btn2, .switch2 {
+  display: none;
 }
