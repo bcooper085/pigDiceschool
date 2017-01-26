@@ -1,8 +1,9 @@
 //Business Logic
- var turnScore = 0;
- var playerTotal1 = 0;
- var playerTotal2 = 0;
- var rollDice = 0;
+ var playerTotal1;
+ var playerTotal2;
+ var roll;
+ var currentScore = 0;
+ var currentPlayer = 1;
 
 function Player(score) {
   // this.playerNumber = playerNumber;
@@ -13,28 +14,36 @@ function Player(score) {
 var player1 = new Player(0);
 var player2 = new Player(0);
 
-function rollDice1() {
-  rollDice = Math.floor((Math.random() * 6) + 1);
-  if (rollDice > 1) {
-    return rollDice;
+function rollDice() {
+  var roll = Math.floor((Math.random() * 6) + 1);
+  if (roll === 1) {
+    currentScore = 0;
+    switchPlayer();
   } else {
-    return 0;
+    currentScore += roll;
   }
-}
-function addToTotal1() {
-  return player1.score += rollDice;
+  return roll;
 }
 
-function rollDice2() {
-  rollDice = Math.floor((Math.random() * 6) + 1);
-  if (rollDice > 1) {
-    return rollDice;
+function switchPlayer() {
+  if (currentPlayer === 1) {
+    playerTotal1 += currentScore;
+    currentPlayer = 2;
   } else {
-    return rollDice += 0;
+    playerTotal2 += currentScore;
+    currentPlayer = 1;
   }
+  return playerTotal1;
+  return playerTotal2;
 }
+
+
+function addToTotal1() {
+  return player1.score += currentScore;
+}
+
 function addToTotal2() {
-  return player2.score += rollDice;
+  return player2.score += currentScore;
 }
 
 function winner() {
@@ -46,11 +55,11 @@ function winner() {
 }
 
 
-
 //UI Logic
 $(function() {
   $('.btn1').click(function() {
-    $('.diceNow').text(rollDice1);
+    $('.diceNow').text(rollDice);
+    $('.currentTotal').text(currentScore);
     winner();
   })
   $('.switch1').click(function() {
@@ -62,7 +71,8 @@ $(function() {
 
   })
   $('.btn2').click(function() {
-    $('.diceNow').text(rollDice2);
+    $('.diceNow').text(rollDice);
+    $('.currentTotal').text(currentScore);
     winner();
   })
   $('.switch2').click(function() {
@@ -71,7 +81,6 @@ $(function() {
     $('.switch2').hide();
     $('.btn1').show();
     $('.switch1').show();
-
 
   })
 });
