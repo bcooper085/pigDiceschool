@@ -39,24 +39,29 @@ function rollDice() {
 
 
 function addToTotal1() {
+
   return player1.score += currentScore;
 }
 
 function addToTotal2() {
+
   return player2.score += currentScore;
 }
 
 function winner() {
-  if (addToTotal1 >= 100) {
+  if (player1.score >= 10) {
     alert("Player 1 wins");
-  } else if (addToTotal2 >=100) {
+  } else if (player2.score   >=10) {
     alert("Player 2 wins");
   }
 }
 
 
+
+
 //UI Logic
 $(function() {
+
 
   $('.player1').submit(function() {
     event.preventDefault();
@@ -72,8 +77,8 @@ $(function() {
 
       $('.player-one-buttons').hide();
       $('.player-two-buttons').show();
+
     }
-    winner();
   })
 
   $('.switch1').click(function() {
@@ -81,6 +86,9 @@ $(function() {
     $('.player-one-buttons').hide()
     $('.player-two-buttons').show()
     currentScore = 0;
+    if (player1.score >= 100) {
+      alert("Player 1 wins");
+    }
   })
 
   $('.btn2').click(function() {
@@ -92,7 +100,6 @@ $(function() {
     } else {
       return false;
     }
-    winner();
   })
 
   $('.switch2').click(function() {
@@ -100,5 +107,8 @@ $(function() {
     $('.player-two-buttons').hide()
     $('.player-one-buttons').show()
     currentScore = 0;
+    if (player2.score >= 100) {
+      alert("Player 2 wins");
+    }
   })
 });

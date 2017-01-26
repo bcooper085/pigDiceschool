@@ -5,3 +5,7 @@
 .player-two-buttons {
   display: none;
 }
+
+.player1 {
+  text-align: center;
+}
