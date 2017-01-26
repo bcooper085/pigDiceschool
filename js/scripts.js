@@ -15,27 +15,27 @@ var player1 = new Player(0);
 var player2 = new Player(0);
 
 function rollDice() {
-  var roll = Math.floor((Math.random() * 6) + 1);
+  roll = Math.floor((Math.random() * 6) + 1);
   if (roll === 1) {
     currentScore = 0;
-    switchPlayer();
+    // switchPlayer();
   } else {
     currentScore += roll;
   }
   return roll;
 }
 
-function switchPlayer() {
-  if (currentPlayer === 1) {
-    playerTotal1 += currentScore;
-    currentPlayer = 2;
-  } else {
-    playerTotal2 += currentScore;
-    currentPlayer = 1;
-  }
-  return playerTotal1;
-  return playerTotal2;
-}
+// function switchPlayer() {
+//   if (currentPlayer === 1) {
+//     playerTotal1 += currentScore;
+//     currentPlayer = 2;
+//   } else {
+//     playerTotal2 += currentScore;
+//     currentPlayer = 1;
+//   }
+//   return playerTotal1;
+//   return playerTotal2;
+// }
 
 
 function addToTotal1() {
@@ -57,6 +57,7 @@ function winner() {
 
 //UI Logic
 $(function() {
+
   $('.player1').submit(function() {
     event.preventDefault();
     $("#player-one-name").text($("#player-name-1").val());
@@ -66,29 +67,38 @@ $(function() {
   $('.btn1').click(function() {
     $('.diceNow').text(rollDice);
     $('.currentTotal').text(currentScore);
+    console.log(roll);
+    if(roll === 1) {
+
+      $('.player-one-buttons').hide();
+      $('.player-two-buttons').show();
+    }
     winner();
   })
+
   $('.switch1').click(function() {
     $('.display-total-score-one').text(addToTotal1);
-    $('.btn1').hide();
-    $('.switch1').hide();
-    $('.btn2').show();
-    $('.switch2').show();
+    $('.player-one-buttons').hide()
+    $('.player-two-buttons').show()
     currentScore = 0;
-
   })
+
   $('.btn2').click(function() {
     $('.diceNow').text(rollDice);
     $('.currentTotal').text(currentScore);
+    if(roll === 1) {
+      $('.player-one-buttons').show();
+      $('.player-two-buttons').hide();
+    } else {
+      return false;
+    }
     winner();
   })
+
   $('.switch2').click(function() {
     $('.display-total-score-two').text(addToTotal2);
-    $('.btn2').hide();
-    $('.switch2').hide();
-    $('.btn1').show();
-    $('.switch1').show();
+    $('.player-two-buttons').hide()
+    $('.player-one-buttons').show()
     currentScore = 0;
-
   })
 });
